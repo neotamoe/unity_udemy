@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class Hacker : MonoBehaviour
 {
+    // Game State
+    int level;
+
     // Start is called before the first frame update
     void Start()
     {
         print("Hello, Console");
-        ShowMainMenu("Hello, Hacker Neota.");
+        ShowMainMenu();
     }
 
-    void ShowMainMenu (string greeting)
+    void ShowMainMenu ()
     {
         Terminal.ClearScreen();
-        Terminal.WriteLine(greeting);
+        Terminal.WriteLine("Hello Hacker.");
         Terminal.WriteLine("Select your target:");
         Terminal.WriteLine("1. Fruit Stand");
         Terminal.WriteLine("2. Tech Startup");
@@ -30,7 +33,17 @@ public class Hacker : MonoBehaviour
             ShowMainMenu();
         } else if (input=="1")
         {
-            Terminal.WriteLine("Let's hack the fruit stand!");
+            level = 1;
+            Terminal.WriteLine("You chose level 1. Let's hack the fruit stand!");
+        } else if (input=="2")
+        {
+            level = 2;
+            Terminal.WriteLine("You chose level 2. Let's hack the startup.");
+        }
+        else if (input == "3")
+        {
+            level = 3;
+            Terminal.WriteLine("You chose level 3. Let's hack the lab.");
         }
         else
         {
