@@ -11,7 +11,7 @@ public class Hacker : MonoBehaviour
     int level;
     string password;
 
-    enum Screen {  MainMenu, Password, Win};
+    enum Screen {  MainMenu, Password, Win };
     Screen currentScreen;
 
     // Start is called before the first frame update
@@ -94,11 +94,65 @@ public class Hacker : MonoBehaviour
     {
         if(input == password)
         {
-            Terminal.WriteLine("Congratulations!  Correct Password.");
-        } 
+            DisplayWinScreen();
+        }
         else
         {
             Terminal.WriteLine("Wrong.  Please try again.");
+        }
+    }
+
+    void DisplayWinScreen()
+    {
+        currentScreen = Screen.Win;
+        Terminal.ClearScreen();
+        ShowLevelReward();
+    }
+
+    void ShowLevelReward()
+    {
+        switch(level)
+        {
+            case 1:
+                Terminal.WriteLine("Congratulations!  Have an apple...");
+                Terminal.WriteLine(@"
+
+ _|/_
+/    \
+\    /
+ \__/
+"
+                );
+                break;
+            case 2:
+                Terminal.WriteLine("Congratulations!  Here's a computer...");
+                Terminal.WriteLine(@"
+_________
+| _____  |
+| |    | |
+| |____| |
+|________|
+\:::::::::\
+ \:::::::::\
+  ----------
+"
+                );
+                break;
+            case 3:
+                Terminal.WriteLine("Congratulations!  Have a flask...");
+                Terminal.WriteLine(@"
+ ___
+ | |
+ | |
+ /  \
+/    \   
+\____/
+"
+);
+                break;
+            default:
+                Debug.LogError("Unknown level reached.");
+                break;
         }
     }
 
@@ -106,8 +160,8 @@ public class Hacker : MonoBehaviour
     void Update()
     {
         // this can be a good place to check a function like this
-         int index = Random.Range(0, level1Passwords.Length);
-         print(index);
+         //int index = Random.Range(0, level1Passwords.Length);
+         //print(index);
     }
 
 }
