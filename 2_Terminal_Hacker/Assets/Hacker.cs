@@ -37,7 +37,7 @@ public class Hacker : MonoBehaviour
 
     void PrintMenuReminder()
     {
-        Terminal.WriteLine("You can type 'menu' at any time in the game to return to this menu.");
+        Terminal.WriteLine("You can type 'menu' at any time.");
     }
 
     void OnUserInput(string input)
@@ -45,6 +45,10 @@ public class Hacker : MonoBehaviour
         if (input == "menu")
         {
             ShowMainMenu();
+        } else if (input == "exit" || input == "close" || input == "quit") 
+        {
+            Terminal.WriteLine("If playing on the web, close your browser tab.");
+            Application.Quit();
         }
         else if (currentScreen == Screen.MainMenu) {
             RunMainMenu(input);
@@ -119,7 +123,6 @@ public class Hacker : MonoBehaviour
         currentScreen = Screen.Win;
         Terminal.ClearScreen();
         ShowLevelReward();
-        PrintMenuReminder();
     }
 
     void ShowLevelReward()
@@ -128,6 +131,7 @@ public class Hacker : MonoBehaviour
         {
             case 1:
                 Terminal.WriteLine("Congratulations!  Have an apple...");
+                Terminal.WriteLine("Type 'menu' to play again.");
                 Terminal.WriteLine(@"
 
  _|/_
@@ -139,11 +143,11 @@ public class Hacker : MonoBehaviour
                 break;
             case 2:
                 Terminal.WriteLine("Congratulations!  Here's a computer...");
+                Terminal.WriteLine("Type 'menu' to play again.");
                 Terminal.WriteLine(@"
 _________
-| _____  |
-| |    | |
-| |____| |
+|        |
+|        |
 |________|
 \:::::::::\
  \:::::::::\
@@ -153,6 +157,7 @@ _________
                 break;
             case 3:
                 Terminal.WriteLine("Congratulations!  Have a flask...");
+                Terminal.WriteLine("Type 'menu' to play again.");
                 Terminal.WriteLine(@"
  ___
  | |
