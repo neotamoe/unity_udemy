@@ -3,7 +3,7 @@
 public class Hacker : MonoBehaviour
 {
     // Game Configuration
-    string[] level1Passwords = { "braeburn", "delicious", "granny", "pinkLady", "red", "green" };
+    string[] level1Passwords = { "braeburn", "delicious", "granny", "golden", "red", "green" };
     string[] level2Passwords = { "analyst", "tester", "owner", "developer", "scrum", "agile" };
     string[] level3Passwords = { "formula", "chemical", "monolayer", "lipid", "membrane", "labcoat" };
 
@@ -17,11 +17,10 @@ public class Hacker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        print("Hello, Console");
         ShowMainMenu();
     }
 
-    void ShowMainMenu ()
+    void ShowMainMenu()
     {
         currentScreen = Screen.MainMenu;
         level = 0;
@@ -34,6 +33,11 @@ public class Hacker : MonoBehaviour
         Terminal.WriteLine("3. Science Lab");
         Terminal.WriteLine("Enter your selection:");
 
+    }
+
+    void PrintMenuReminder()
+    {
+        Terminal.WriteLine("You can type 'menu' at any time in the game to return to this menu.");
     }
 
     void OnUserInput(string input)
@@ -56,22 +60,31 @@ public class Hacker : MonoBehaviour
         if (isValidLevel)
         {
             level = int.Parse(input);
-            StartGame();
+            AskForPassword();
         }
         else if (input == "007")
         {
-            Terminal.WriteLine("Welcome, Agent Bond.");        
-        }
+            Terminal.WriteLine("Welcome, Agent Bond.");
+            PrintMenuReminder();
+}
         else
         {
             Terminal.WriteLine("Select a valid level");
+            PrintMenuReminder();
         }
     }
 
-    void StartGame()
+    void AskForPassword()
     {
         currentScreen = Screen.Password;
         Terminal.ClearScreen();
+        SetRandomPassword();
+        Terminal.WriteLine("Enter your password.  Hint: " + password.Anagram());
+        PrintMenuReminder();
+    }
+
+    private void SetRandomPassword()
+    {
         switch (level)
         {
             case 1:
@@ -87,7 +100,6 @@ public class Hacker : MonoBehaviour
                 Debug.LogError("Error setting password.");
                 break;
         }
-        Terminal.WriteLine("Please enter your password: ");
     }
 
     void CheckPassword(string input)
@@ -98,7 +110,7 @@ public class Hacker : MonoBehaviour
         }
         else
         {
-            Terminal.WriteLine("Wrong.  Please try again.");
+            AskForPassword();
         }
     }
 
@@ -107,6 +119,7 @@ public class Hacker : MonoBehaviour
         currentScreen = Screen.Win;
         Terminal.ClearScreen();
         ShowLevelReward();
+        PrintMenuReminder();
     }
 
     void ShowLevelReward()
